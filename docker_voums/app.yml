@@ -1,0 +1,22 @@
+
+#spring.liquibase.url=jdbc:postgresql://localhost:1111/wallet_db
+#spring.liquibase.password=123
+#spring.liquibase.user=test_user
+#spring.liquibase.driver-class-name=org.postgresql.Driver
+
+
+
+
+liquibase_set_test-data: true
+
+spring:
+  datasource:
+    url: jdbc:postgresql://database_pos:5432/wallet_db
+    password: 123
+    username: test_user
+    driver-class-name: org.postgresql.Driver
+
+datasource:
+  table:
+    name: wallet
+    logName: wallet_operation

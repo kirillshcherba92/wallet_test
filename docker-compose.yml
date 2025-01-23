@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  database_pos:
+    image: postgres:13
+    healthcheck:
+      start_period: 60s
+      test: "exit 0"
+      interval: 30s
+      timeout: 15s
+      retries: 10
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=test_user
+      - POSTGRES_DB=wallet_db
+    ports:
+      - 5432:5432
+    networks:
+      - back
+#    volumes:
+#      - ./sql_pos:/opt/r9n
+#      - ./sql_pos/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  application_wallet:
+    image: 'local-wallet:0.0.2'
+    volumes:
+    - ./docker_voums/app.yml:/app/application.yml
+    ports:
+    - 8080:8080
+    depends_on:
+      database_pos:
+        condition: service_healthy
+    networks:
+      - back
+
+networks:
+  back:
+    driver: bridge

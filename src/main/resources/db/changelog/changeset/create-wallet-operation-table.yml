@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-wallet-operation
+      author: Kirill
+      changes:
+        - createTable:
+            tableName: wallet_operation
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: operation_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_wallet
+                  type: varchar
+                  constraints:
+                    foreignKeyName: id_wallet
+                    references: wallet(id)
+                    deleteCascade: true
